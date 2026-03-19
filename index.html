@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Мотивационная сетка слотов</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg1: #f5f5fb;
+      --bg2: #eef8ff;
+      --card-bg: #ffffff;
+      --border: #d9dce6;
+      --text-main: #14151f;
+      --text-muted: #6c7280;
+      --accent: #3f51b5;
+      --shadow-soft: 0 10px 30px rgba(15, 15, 35, 0.08);
+      --radius: 14px;
+      --transition: 0.35s ease;
+
+      /* Цветовые группы (как в таблице) */
+      --g-yellow: #fff200;
+      --g-orange: #f39c12;
+      --g-green:  #00e33a;
+      --g-magenta:#ff00ff;
+      --g-blue:   #4a86e8;
+      --g-cyan:   #00e5ff;
+      --g-darkgreen: #38761d;
+      --g-rose:  #ea9999;
+
+
+      /* слегка «приглушенные» фоны для карточек */
+      --g-yellow-soft:  rgba(255, 242, 0, 0.35);
+      --g-orange-soft:  rgba(243, 156, 18, 0.28);
+      --g-green-soft:   rgba(0, 227, 58, 0.22);
+      --g-magenta-soft: rgba(255, 0, 255, 0.16);
+      --g-blue-soft:    rgba(74, 134, 232, 0.22);
+      --g-cyan-soft:    rgba(0, 229, 255, 0.18);
+      --g-darkgreen-soft: rgba(56, 118, 29, 0.20);
+      --g-rose-soft:      rgba(234, 153, 153, 0.28);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      background: radial-gradient(circle at top left, var(--bg2), var(--bg1) 40%, #e7ecf7 100%);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+    }
+
+    .page { width: 100%; max-width: 1320px; }
+
+    header { margin-bottom: 20px; }
+    header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    header p {
+      font-size: 13px;
+      color: var(--text-muted);
+      max-width: 780px;
+    }
+
+    /* Сетка: 6 карточек в ширину на десктопе */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 1300px) {
+      .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    }
+    @media (max-width: 1100px) {
+      .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 420px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card { perspective: 1200px; cursor: pointer; }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      padding-top: 76%;
+      transform-style: preserve-3d;
+      transition: transform var(--transition);
+    }
+    .card.flipped .card-inner { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      padding: 10px 12px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backface-visibility: hidden;
+      overflow: hidden;
+    }
+
+    /* Цветные фоны слотов */
+    .tint-yellow  { background: linear-gradient(180deg, var(--g-yellow-soft), rgba(255,255,255,0.92)); border-color: rgba(0,0,0,0.12); }
+    .tint-orange  { background: linear-gradient(180deg, var(--g-orange-soft), rgba(255,255,255,0.92)); border-color: rgba(0,0,0,0.12); }
+    .tint-green   { background: linear-gradient(180deg, var(--g-green-soft),  rgba(255,255,255,0.92)); border-color: rgba(0,0,0,0.12); }
+    .tint-magenta { background: linear-gradient(180deg, var(--g-magenta-soft),rgba(255,255,255,0.92)); border-color: rgba(0,0,0,0.12); }
+    .tint-blue    { background: linear-gradient(180deg, var(--g-blue-soft),   rgba(255,255,255,0.92)); border-color: rgba(0,0,0,0.12); }
+    .tint-cyan    { background: linear-gradient(180deg, var(--g-cyan-soft),   rgba(255,255,255,0.92)); border-color: rgba(0,0,0,0.12); }
+    .tint-darkgreen { background: linear-gradient(180deg, var(--g-darkgreen-soft), rgba(255,255,255,0.92)); border-color: rgba(0,0,0,0.12); }
+    .tint-rose      { background: linear-gradient(180deg, var(--g-rose-soft),      rgba(255,255,255,0.92)); border-color: rgba(0,0,0,0.12); }
+
+
+    .card-front { transform: rotateY(0deg); }
+    .card-back  { transform: rotateY(180deg); }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .pill {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.75);
+      color: #2b2f3a;
+      white-space: nowrap;
+    }
+
+    .card-number { font-size: 11px; color: var(--text-muted); }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: #2b2f3a;
+      line-height: 1.25;
+    }
+
+    .card-footer {
+      font-size: 10px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .flip-hint {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .prize-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .badge-corner {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 18px;
+      opacity: 0.18;
+    }
+
+    .winner-block { margin-top: 8px; }
+    .winner-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .winner-input {
+      width: 100%;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      outline: none;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .winner-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(63, 81, 181, 0.15);
+    }
+
+    .winner-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      gap: 6px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      font-size: 10px;
+      padding: 6px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    .btn-save { background: var(--accent); color: #fff; }
+    .btn-reset { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+
+    .winner-name-front {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Серый цвет при сохранении */
+    .card.completed .card-face {
+      filter: grayscale(1);
+      opacity: 0.75;
+    }
+    .card.completed .card-face::after {
+      content: "Сохранено";
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(20, 21, 31, 0.07);
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 14px; }
+      header h1 { font-size: 20px; }
+      .card-inner { padding-top: 82%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>PANDORA 2026</h1>
+      <p>
+        Все слоты на одной странице. На первой стороне — <b>условие</b>.
+        Нажмите на карточку, чтобы увидеть <b>приз</b>, вписать имя победителя и сохранить.
+        После сохранения слот становится серым. Данные сохраняются в этом браузере.
+      </p>
+
+      
+    </header>
+
+    <main class="grid" id="cardsGrid"></main>
+  </div>
+
+  <script>
+    // Слоты (категория / тип / условие / приз) — по таблице со скриншота
+        const slots = [
+      { id: 1,  group: "yellow",     type: "Заявки",     category: "50 Заявок",                 condition: "Первому достигшему на любых площадках",                                              prizeTitle: "Тостер Xiaomi Toaster" },
+      { id: 2,  group: "yellow",     type: "Заявки",     category: "100 Заявок",                condition: "Первому достигшему на любых площадках",                                              prizeTitle: "Внешний аккумулятор Baseus Magnetic (MagSafe)" },
+      { id: 3,  group: "yellow",     type: "Заявки",     category: "25 Заявок OK/AUK",          condition: "Первому достигшему только на портале ГЗ",                                             prizeTitle: "Умная колонка Яндекс Станция Лайт 2" },
+      { id: 4,  group: "yellow",     type: "Маржа",      category: "Наценка ≥ 100%",            condition: "Второму исполнившему по истинной марже",                                              prizeTitle: "Увлажнитель воздуха Xiaomi Mi Smart Sterilization Humidifier S" },
+      { id: 5,  group: "yellow",     type: "Маржа",      category: "Наценка ≥ 100%",            condition: "Первому исполнившему по истинной марже",                                              prizeTitle: "Электрочайник Xiaomi MJDSH05FD" },
+      { id: 6,  group: "yellow",     type: "Сроки",      category: "Скорость ≤ 10 дней",        condition: "Второму поставившему по сроку отгрузки.",                                             prizeTitle: "Настольная лампа Xiaomi Smart Desk Lamp" },
+      { id: 7,  group: "yellow",     type: "Сроки",      category: "Скорость ≤ 10 дней",        condition: "Первому поставившему по сроку отгрузки.",                                             prizeTitle: "Картинг 15 минут - на 2 человека" },
+      { id: 8,  group: "yellow",     type: "Контракты",  category: "Самрук Казына",             condition: "Первый закрывший контракт",                                                           prizeTitle: "Аэрогриль Xiaomi Smart Air Fryer" },
+      { id: 9,  group: "yellow",     type: "Контракты",  category: "5 Контрактов",              condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "SPA на одного в салоне тайского массажа «Имбирь»" },
+
+      { id: 10, group: "orange",     type: "Контракты",  category: "10 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Сертификат ресторан Line Brew Reserve 70 000 тенге" },
+      { id: 11, group: "orange",     type: "Заявки",     category: "50 Заявок OK/AUK",          condition: "Второму достигшему только на портале ГЗ",                                             prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
+      { id: 12, group: "orange",     type: "Заявки",     category: "50 Заявок OK/AUK",          condition: "Первому достигшему только на портале ГЗ",                                             prizeTitle: "Наушники Marshall Major V" },
+      { id: 13, group: "orange",     type: "Контракты",  category: "30 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Сертификат Золотое яблоко 100 000 тенге" },
+      { id: 14, group: "orange",     type: "Прибыль",    category: "10 000 000 тг ВП",          condition: "Первому достигшему методом начисления.",                                               prizeTitle: "Сертификат Massimo Duti 100 000 тенге" },
+
+      { id: 15, group: "green",      type: "Контракты",  category: "40 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Rixos Borovoe Hotel 5* на двоих 1 ночь" },
+      { id: 16, group: "green",      type: "Контракты",  category: "40 Контрактов",             condition: "Второму закрывшему. Каждый лот = контракт",                                            prizeTitle: "Wyndham Garden Burabay 4* на двоих 1 ночь" },
+      { id: 17, group: "green",      type: "Прибыль",    category: "20 000 000 тг ВП",          condition: "Первому достигшему методом начисления.",                                               prizeTitle: "Наушники Apple AirPods Max 2" },
+
+      { id: 18, group: "magenta",    type: "Geography",  category: "Карточка Колумба",          condition: "Первый закрытый контракт с поставщиком из Американского континента (растаможка)",    prizeTitle: "Чемодан Xiaomi NinetyGo Coffee Journey 20" },
+      { id: 19, group: "magenta",    type: "Geography",  category: "Карточка Марко Поло",       condition: "Первый кто закрыл 5 контрактов с поставщиками вне ЕАС (растаможка). 1 поставщик = 1 растаможка", prizeTitle: "Робот-пылесос Xiaomi Robot Vacuum X20+" },
+      { id: 20, group: "magenta",    type: "Geography",  category: "Карточка Магеллана",        condition: "Первый кто закрыл 3 контракта с поставщиками из 3 разных стран (растаможка)",        prizeTitle: "Смарт-очки Ray-Ban Meta Wayfarer Standard" },
+
+      { id: 21, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
+      { id: 22, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
+      { id: 23, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
+      { id: 24, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
+
+      { id: 25, group: "cyan",       type: "Заявки",     category: "1000 Заявок",               condition: "Компания подала 1000 заявок на участие в тендерах (все способы, все площадки)",      prizeTitle: "Билеты в кино для совместного похода" },
+
+      { id: 26, group: "darkgreen",  type: "Замдир",     category: "100 000 000 тг ВП",          condition: "Компания закрыла контракты с валовой прибылью",                                        prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
+      { id: 27, group: "darkgreen",  type: "Замдир",     category: "250 000 000 тг ВП",          condition: "Компания закрыла контракты с валовой прибылью",                                        prizeTitle: "MacBook Air" },
+
+      { id: 28, group: "rose",       type: "Бухгалтер",  category: "100 Закрытых контрактов",    condition: "Компания закрыла 100 контрактов. Каждый лот = контракт",                               prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
+      { id: 29, group: "rose",       type: "Бухгалтер",  category: "200 Закрытых контрактов",    condition: "Компания закрыла 200 контрактов. Каждый лот = контракт",                               prizeTitle: "Сертификат Pandora 100 000 тенге" },
+      { id: 30, group: "rose",       type: "Бухгалтер",  category: "300 Закрытых контрактов",    condition: "Компания закрыла 300 контрактов. Каждый лот = контракт",                               prizeTitle: "Rixos Borovoe Hotel 5* на двоих 1 ночь" }
+    ];
+
+    const groupToTintClass = {
+      yellow: "tint-yellow",
+      orange: "tint-orange",
+      green: "tint-green",
+      magenta: "tint-magenta",
+      blue: "tint-blue",
+      cyan: "tint-cyan",
+      darkgreen: "tint-darkgreen",
+      rose: "tint-rose"
+    };
+
+    const grid = document.getElementById("cardsGrid");
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem("tender-slots-2026");
+        if (!raw) return {};
+        return JSON.parse(raw);
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveState(state) {
+      localStorage.setItem("tender-slots-2026", JSON.stringify(state));
+    }
+
+    const state = loadState();
+
+    slots.forEach(slot => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.id = slot.id;
+
+      const inner = document.createElement("div");
+      inner.className = "card-inner";
+
+      const front = document.createElement("div");
+      front.className = "card-face card-front " + groupToTintClass[slot.group];
+
+      const back = document.createElement("div");
+      back.className = "card-face card-back " + groupToTintClass[slot.group];
+
+      const slotState = state[slot.id] || {};
+      const winnerName = slotState.winnerName || "";
+      const completed = !!slotState.completed;
+
+      if (completed) card.classList.add("completed");
+
+      // FRONT: только условие
+      front.innerHTML = `
+        <div class="badge-corner">◎</div>
+        <div class="card-header">
+          <span class="pill">${slot.type}</span>
+          <span class="card-number">#${slot.id}</span>
+        </div>
+        <div>
+          <div class="card-title">${slot.category}</div>
+          <div class="card-desc">${slot.condition}</div>
+          ${winnerName ? `<div class="winner-name-front">Победитель: ${winnerName}</div>` : ""}
+        </div>
+        <div class="card-footer">
+          <span class="flip-hint">нажмите, чтобы открыть приз</span>
+        </div>
+      `;
+
+      // BACK: только приз + имя + кнопки
+      back.innerHTML = `
+        <div class="badge-corner">★</div>
+        <div class="card-header">
+          <span class="pill">Приз</span>
+          <span class="card-number">#${slot.id}</span>
+        </div>
+        <div>
+          <div class="prize-title">${slot.prizeTitle}</div>
+          <div class="winner-block">
+            <div class="winner-label">Имя победителя:</div>
+            <input class="winner-input" type="text" value="${winnerName || ""}" placeholder="Введите имя" />
+          </div>
+        </div>
+        <div class="winner-actions">
+          <button class="btn btn-save">Сохранить</button>
+          <button class="btn btn-reset">Сброс</button>
+        </div>
+      `;
+
+      inner.appendChild(front);
+      inner.appendChild(back);
+      card.appendChild(inner);
+
+      // клик по карте — переворот
+      card.addEventListener("click", (e) => {
+        if (e.target.tagName === "BUTTON" || e.target.tagName === "INPUT") return;
+        card.classList.toggle("flipped");
+      });
+
+      // обработка кнопок
+      const input = back.querySelector(".winner-input");
+      const btnSave = back.querySelector(".btn-save");
+      const btnReset = back.querySelector(".btn-reset");
+
+      btnSave.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const name = input.value.trim();
+        const current = loadState();
+        current[slot.id] = { winnerName: name, completed: !!name };
+        saveState(current);
+
+        // обновляем фронт
+        const extra = front.querySelector(".winner-name-front");
+        if (extra) extra.remove();
+
+        if (name) {
+          front.querySelector(".card-desc").insertAdjacentHTML("afterend", `<div class="winner-name-front">Победитель: ${name}</div>`);
+          card.classList.add("completed");
+        } else {
+          card.classList.remove("completed");
+        }
+      });
+
+      btnReset.addEventListener("click", (e) => {
+        e.stopPropagation();
+        input.value = "";
+        const current = loadState();
+        delete current[slot.id];
+        saveState(current);
+
+        const extra = front.querySelector(".winner-name-front");
+        if (extra) extra.remove();
+        card.classList.remove("completed");
+      });
+
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>

@@ -383,7 +383,7 @@
         <div>
           <div class="card-title">${escapeHtml(slot.category)}</div>
           <div class="card-desc">${escapeHtml(slot.condition)}</div>
-          ${winnerName ? <div class="winner-name-front">Победитель: ${escapeHtml(winnerName)}</div> : ""}
+          ${winnerName ? `<div class="winner-name-front">Победитель: ${escapeHtml(winnerName)}</div>` : ""}
         </div>
         <div class="card-footer">
           <span class="flip-hint">нажмите, чтобы открыть приз</span>

@@ -288,76 +288,71 @@
     <main class="grid" id="cardsGrid"></main>
   </div>
 
-  <script>
-    // Слоты (категория / тип / условие / приз) — по таблице со скриншота
-        const slots = [
-      { id: 1,  group: "yellow",     type: "Заявки",     category: "50 Заявок",                 condition: "Первому достигшему на любых площадках",                                              prizeTitle: "Тостер Xiaomi Toaster" },
-      { id: 2,  group: "yellow",     type: "Заявки",     category: "100 Заявок",                condition: "Первому достигшему на любых площадках",                                              prizeTitle: "Внешний аккумулятор Baseus Magnetic (MagSafe)" },
-      { id: 3,  group: "yellow",     type: "Заявки",     category: "25 Заявок OK/AUK",          condition: "Первому достигшему только на портале ГЗ",                                             prizeTitle: "Умная колонка Яндекс Станция Лайт 2" },
-      { id: 4,  group: "yellow",     type: "Маржа",      category: "Наценка ≥ 100%",            condition: "Второму исполнившему по истинной марже",                                              prizeTitle: "Увлажнитель воздуха Xiaomi Mi Smart Sterilization Humidifier S" },
-      { id: 5,  group: "yellow",     type: "Маржа",      category: "Наценка ≥ 100%",            condition: "Первому исполнившему по истинной марже",                                              prizeTitle: "Электрочайник Xiaomi MJDSH05FD" },
-      { id: 6,  group: "yellow",     type: "Сроки",      category: "Скорость ≤ 10 дней",        condition: "Второму поставившему по сроку отгрузки.",                                             prizeTitle: "Настольная лампа Xiaomi Smart Desk Lamp" },
-      { id: 7,  group: "yellow",     type: "Сроки",      category: "Скорость ≤ 10 дней",        condition: "Первому поставившему по сроку отгрузки.",                                             prizeTitle: "Картинг 15 минут - на 2 человека" },
-      { id: 8,  group: "yellow",     type: "Контракты",  category: "Самрук Казына",             condition: "Первый закрывший контракт",                                                           prizeTitle: "Аэрогриль Xiaomi Smart Air Fryer" },
-      { id: 9,  group: "yellow",     type: "Контракты",  category: "5 Контрактов",              condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "SPA на одного в салоне тайского массажа «Имбирь»" },
+ <script>
+  const slots = [
+    { id: 1,  group: "yellow",     type: "Заявки",     category: "50 Заявок",                 condition: "Первому достигшему на любых площадках",                                              prizeTitle: "Тостер Xiaomi Toaster" },
+    { id: 2,  group: "yellow",     type: "Заявки",     category: "100 Заявок",                condition: "Первому достигшему на любых площадках",                                              prizeTitle: "Внешний аккумулятор Baseus Magnetic (MagSafe)" },
+    { id: 3,  group: "yellow",     type: "Заявки",     category: "25 Заявок OK/AUK",          condition: "Первому достигшему только на портале ГЗ",                                             prizeTitle: "Умная колонка Яндекс Станция Лайт 2" },
+    { id: 4,  group: "yellow",     type: "Маржа",      category: "Наценка ≥ 100%",            condition: "Второму исполнившему по истинной марже",                                              prizeTitle: "Увлажнитель воздуха Xiaomi Mi Smart Sterilization Humidifier S" },
+    { id: 5,  group: "yellow",     type: "Маржа",      category: "Наценка ≥ 100%",            condition: "Первому исполнившему по истинной марже",                                              prizeTitle: "Электрочайник Xiaomi MJDSH05FD" },
+    { id: 6,  group: "yellow",     type: "Сроки",      category: "Скорость ≤ 10 дней",        condition: "Второму поставившему по сроку отгрузки.",                                             prizeTitle: "Настольная лампа Xiaomi Smart Desk Lamp" },
+    { id: 7,  group: "yellow",     type: "Сроки",      category: "Скорость ≤ 10 дней",        condition: "Первому поставившему по сроку отгрузки.",                                             prizeTitle: "Картинг 15 минут - на 2 человека" },
+    { id: 8,  group: "yellow",     type: "Контракты",  category: "Самрук Казына",             condition: "Первый закрывший контракт",                                                           prizeTitle: "Аэрогриль Xiaomi Smart Air Fryer" },
+    { id: 9,  group: "yellow",     type: "Контракты",  category: "5 Контрактов",              condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "SPA на одного в салоне тайского массажа «Имбирь»" },
 
-      { id: 10, group: "orange",     type: "Контракты",  category: "10 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Сертификат ресторан Line Brew Reserve 70 000 тенге" },
-      { id: 11, group: "orange",     type: "Заявки",     category: "50 Заявок OK/AUK",          condition: "Второму достигшему только на портале ГЗ",                                             prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
-      { id: 12, group: "orange",     type: "Заявки",     category: "50 Заявок OK/AUK",          condition: "Первому достигшему только на портале ГЗ",                                             prizeTitle: "Наушники Marshall Major V" },
-      { id: 13, group: "orange",     type: "Контракты",  category: "30 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Сертификат Золотое яблоко 100 000 тенге" },
-      { id: 14, group: "orange",     type: "Прибыль",    category: "10 000 000 тг ВП",          condition: "Первому достигшему методом начисления.",                                               prizeTitle: "Сертификат Massimo Duti 100 000 тенге" },
+    { id: 10, group: "orange",     type: "Контракты",  category: "10 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Сертификат ресторан Line Brew Reserve 70 000 тенге" },
+    { id: 11, group: "orange",     type: "Заявки",     category: "50 Заявок OK/AUK",          condition: "Второму достигшему только на портале ГЗ",                                             prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
+    { id: 12, group: "orange",     type: "Заявки",     category: "50 Заявок OK/AUK",          condition: "Первому достигшему только на портале ГЗ",                                             prizeTitle: "Наушники Marshall Major V" },
+    { id: 13, group: "orange",     type: "Контракты",  category: "30 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Сертификат Золотое яблоко 100 000 тенге" },
+    { id: 14, group: "orange",     type: "Прибыль",    category: "10 000 000 тг ВП",          condition: "Первому достигшему методом начисления.",                                               prizeTitle: "Сертификат Massimo Dutti 100 000 тенге" },
 
-      { id: 15, group: "green",      type: "Контракты",  category: "40 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Rixos Borovoe Hotel 5* на двоих 1 ночь" },
-      { id: 16, group: "green",      type: "Контракты",  category: "40 Контрактов",             condition: "Второму закрывшему. Каждый лот = контракт",                                            prizeTitle: "Wyndham Garden Burabay 4* на двоих 1 ночь" },
-      { id: 17, group: "green",      type: "Прибыль",    category: "20 000 000 тг ВП",          condition: "Первому достигшему методом начисления.",                                               prizeTitle: "Наушники Apple AirPods Max 2" },
+    { id: 15, group: "green",      type: "Контракты",  category: "40 Контрактов",             condition: "Первому закрывшему. Каждый лот = контракт",                                            prizeTitle: "Rixos Borovoe Hotel 5* на двоих 1 ночь" },
+    { id: 16, group: "green",      type: "Контракты",  category: "40 Контрактов",             condition: "Второму закрывшему. Каждый лот = контракт",                                            prizeTitle: "Wyndham Garden Burabay 4* на двоих 1 ночь" },
+    { id: 17, group: "green",      type: "Прибыль",    category: "20 000 000 тг ВП",          condition: "Первому достигшему методом начисления.",                                               prizeTitle: "Наушники Apple AirPods Max 2" },
 
-      { id: 18, group: "magenta",    type: "Geography",  category: "Карточка Колумба",          condition: "Первый закрытый контракт с поставщиком из Американского континента (растаможка)",    prizeTitle: "Чемодан Xiaomi NinetyGo Coffee Journey 20" },
-      { id: 19, group: "magenta",    type: "Geography",  category: "Карточка Марко Поло",       condition: "Первый кто закрыл 5 контрактов с поставщиками вне ЕАС (растаможка). 1 поставщик = 1 растаможка", prizeTitle: "Робот-пылесос Xiaomi Robot Vacuum X20+" },
-      { id: 20, group: "magenta",    type: "Geography",  category: "Карточка Магеллана",        condition: "Первый кто закрыл 3 контракта с поставщиками из 3 разных стран (растаможка)",        prizeTitle: "Смарт-очки Ray-Ban Meta Wayfarer Standard" },
+    { id: 18, group: "magenta",    type: "Geography",  category: "Карточка Колумба",          condition: "Первый закрытый контракт с поставщиком из Американского континента (растаможка)",    prizeTitle: "Чемодан Xiaomi NinetyGo Coffee Journey 20" },
+    { id: 19, group: "magenta",    type: "Geography",  category: "Карточка Марко Поло",       condition: "Первый кто закрыл 5 контрактов с поставщиками вне ЕАС (растаможка). 1 поставщик = 1 растаможка", prizeTitle: "Робот-пылесос Xiaomi Robot Vacuum X20+" },
+    { id: 20, group: "magenta",    type: "Geography",  category: "Карточка Магеллана",        condition: "Первый кто закрыл 3 контракта с поставщиками из 3 разных стран (растаможка)",        prizeTitle: "Смарт-очки Ray-Ban Meta Wayfarer Standard" },
 
-      { id: 21, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
-      { id: 22, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
-      { id: 23, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
-      { id: 24, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
+    { id: 21, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
+    { id: 22, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
+    { id: 23, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
+    { id: 24, group: "blue",       type: "Прибыль",    category: "40 000 000 тг ВП",          condition: "Достигшему методом начисления.",                                                       prizeTitle: "MacBook Air" },
 
-      { id: 25, group: "cyan",       type: "Заявки",     category: "1000 Заявок",               condition: "Компания подала 1000 заявок на участие в тендерах (все способы, все площадки)",      prizeTitle: "Билеты в кино для совместного похода" },
+    { id: 25, group: "cyan",       type: "Заявки",     category: "1000 Заявок",               condition: "Компания подала 1000 заявок на участие в тендерах (все способы, все площадки)",      prizeTitle: "Билеты в кино для совместного похода" },
 
-      { id: 26, group: "darkgreen",  type: "Замдир",     category: "100 000 000 тг ВП",          condition: "Компания закрыла контракты с валовой прибылью",                                        prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
-      { id: 27, group: "darkgreen",  type: "Замдир",     category: "250 000 000 тг ВП",          condition: "Компания закрыла контракты с валовой прибылью",                                        prizeTitle: "MacBook Air" },
+    { id: 26, group: "darkgreen",  type: "Замдир",     category: "100 000 000 тг ВП",         condition: "Компания закрыла контракты с валовой прибылью",                                        prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
+    { id: 27, group: "darkgreen",  type: "Замдир",     category: "250 000 000 тг ВП",         condition: "Компания закрыла контракты с валовой прибылью",                                        prizeTitle: "MacBook Air" },
 
-      { id: 28, group: "rose",       type: "Бухгалтер",  category: "100 Закрытых контрактов",    condition: "Компания закрыла 100 контрактов. Каждый лот = контракт",                               prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
-      { id: 29, group: "rose",       type: "Бухгалтер",  category: "200 Закрытых контрактов",    condition: "Компания закрыла 200 контрактов. Каждый лот = контракт",                               prizeTitle: "Сертификат Pandora 100 000 тенге" },
-      { id: 30, group: "rose",       type: "Бухгалтер",  category: "300 Закрытых контрактов",    condition: "Компания закрыла 300 контрактов. Каждый лот = контракт",                               prizeTitle: "Rixos Borovoe Hotel 5* на двоих 1 ночь" }
-    ];
+    { id: 28, group: "rose",       type: "Бухгалтер",  category: "100 Закрытых контрактов",   condition: "Компания закрыла 100 контрактов. Каждый лот = контракт",                               prizeTitle: "SPA на двоих в салоне тайского массажа «Имбирь»" },
+    { id: 29, group: "rose",       type: "Бухгалтер",  category: "200 Закрытых контрактов",   condition: "Компания закрыла 200 контрактов. Каждый лот = контракт",                               prizeTitle: "Сертификат Pandora 100 000 тенге" },
+    { id: 30, group: "rose",       type: "Бухгалтер",  category: "300 Закрытых контрактов",   condition: "Компания закрыла 300 контрактов. Каждый лот = контракт",                               prizeTitle: "Rixos Borovoe Hotel 5* на двоих 1 ночь" }
+  ];
 
-    const groupToTintClass = {
-      yellow: "tint-yellow",
-      orange: "tint-orange",
-      green: "tint-green",
-      magenta: "tint-magenta",
-      blue: "tint-blue",
-      cyan: "tint-cyan",
-      darkgreen: "tint-darkgreen",
-      rose: "tint-rose"
-    };
+  const groupToTintClass = {
+    yellow: "tint-yellow",
+    orange: "tint-orange",
+    green: "tint-green",
+    magenta: "tint-magenta",
+    blue: "tint-blue",
+    cyan: "tint-cyan",
+    darkgreen: "tint-darkgreen",
+    rose: "tint-rose"
+  };
 
-    const grid = document.getElementById("cardsGrid");
+  const grid = document.getElementById("cardsGrid");
 
-    function loadState() {
-      try {
-        const raw = localStorage.getItem("tender-slots-2026");
-        if (!raw) return {};
-        return JSON.parse(raw);
-      } catch (e) {
-        return {};
-      }
-    }
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
 
-    function saveState(state) {
-      localStorage.setItem("tender-slots-2026", JSON.stringify(state));
-    }
-
-    const state = loadState();
+  function renderCards(state = {}) {
+    grid.innerHTML = "";
 
     slots.forEach(slot => {
       const card = document.createElement("div");
@@ -373,30 +368,28 @@
       const back = document.createElement("div");
       back.className = "card-face card-back " + groupToTintClass[slot.group];
 
-      const slotState = state[slot.id] || {};
+      const slotState = state[String(slot.id)] || {};
       const winnerName = slotState.winnerName || "";
       const completed = !!slotState.completed;
 
       if (completed) card.classList.add("completed");
 
-      // FRONT: только условие
       front.innerHTML = `
         <div class="badge-corner">◎</div>
         <div class="card-header">
-          <span class="pill">${slot.type}</span>
+          <span class="pill">${escapeHtml(slot.type)}</span>
           <span class="card-number">#${slot.id}</span>
         </div>
         <div>
-          <div class="card-title">${slot.category}</div>
-          <div class="card-desc">${slot.condition}</div>
-          ${winnerName ? `<div class="winner-name-front">Победитель: ${winnerName}</div>` : ""}
+          <div class="card-title">${escapeHtml(slot.category)}</div>
+          <div class="card-desc">${escapeHtml(slot.condition)}</div>
+          ${winnerName ? <div class="winner-name-front">Победитель: ${escapeHtml(winnerName)}</div> : ""}
         </div>
         <div class="card-footer">
           <span class="flip-hint">нажмите, чтобы открыть приз</span>
         </div>
       `;
 
-      // BACK: только приз + имя + кнопки
       back.innerHTML = `
         <div class="badge-corner">★</div>
         <div class="card-header">
@@ -404,15 +397,14 @@
           <span class="card-number">#${slot.id}</span>
         </div>
         <div>
-          <div class="prize-title">${slot.prizeTitle}</div>
+          <div class="prize-title">${escapeHtml(slot.prizeTitle)}</div>
           <div class="winner-block">
-            <div class="winner-label">Имя победителя:</div>
-            <input class="winner-input" type="text" value="${winnerName || ""}" placeholder="Введите имя" />
+            <div class="winner-label">Победитель:</div>
+            <div class="card-desc">${winnerName ? escapeHtml(winnerName) : "Пока не указан"}</div>
           </div>
         </div>
-        <div class="winner-actions">
-          <button class="btn btn-save">Сохранить</button>
-          <button class="btn btn-reset">Сброс</button>
+        <div class="card-footer">
+          <span class="flip-hint">редактирование через GitHub → data.json</span>
         </div>
       `;
 
@@ -420,50 +412,29 @@
       inner.appendChild(back);
       card.appendChild(inner);
 
-      // клик по карте — переворот
-      card.addEventListener("click", (e) => {
-        if (e.target.tagName === "BUTTON" || e.target.tagName === "INPUT") return;
+      card.addEventListener("click", () => {
         card.classList.toggle("flipped");
-      });
-
-      // обработка кнопок
-      const input = back.querySelector(".winner-input");
-      const btnSave = back.querySelector(".btn-save");
-      const btnReset = back.querySelector(".btn-reset");
-
-      btnSave.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const name = input.value.trim();
-        const current = loadState();
-        current[slot.id] = { winnerName: name, completed: !!name };
-        saveState(current);
-
-        // обновляем фронт
-        const extra = front.querySelector(".winner-name-front");
-        if (extra) extra.remove();
-
-        if (name) {
-          front.querySelector(".card-desc").insertAdjacentHTML("afterend", `<div class="winner-name-front">Победитель: ${name}</div>`);
-          card.classList.add("completed");
-        } else {
-          card.classList.remove("completed");
-        }
-      });
-
-      btnReset.addEventListener("click", (e) => {
-        e.stopPropagation();
-        input.value = "";
-        const current = loadState();
-        delete current[slot.id];
-        saveState(current);
-
-        const extra = front.querySelector(".winner-name-front");
-        if (extra) extra.remove();
-        card.classList.remove("completed");
       });
 
       grid.appendChild(card);
     });
-  </script>
+  }
+
+  async function init() {
+    try {
+      const response = await fetch("./data.json?_=" + Date.now(), { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Не удалось загрузить data.json");
+      }
+      const state = await response.json();
+      renderCards(state);
+    } catch (error) {
+      console.error(error);
+      renderCards({});
+    }
+  }
+
+  init();
+</script>
 </body>
 </html>
